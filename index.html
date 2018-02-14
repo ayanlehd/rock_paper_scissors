@@ -1,0 +1,87 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+
+  <script>
+    
+    var playerScore = 0;
+    var computerScore = 0;
+
+
+    function computerSelection() {
+      let numb = Math.floor(Math.random() * 3);
+      if (numb == 0){
+      	return "rock";
+      }
+      else if (numb == 1) {
+      	return "paper";
+      }
+      else {
+      	return "scissors";
+      }
+    }
+
+    function playerSelection() {
+      var playerChoice = prompt("Please choose between Rock, Paper and Scissors");
+      return playerChoice.toLowerCase();
+    }
+
+    function playRound(player, computer) {
+        if (player === computer) {
+           alert("it's a Draw!!!");
+           return 0;
+        }
+        if(    
+              (player === "rock" && computer === "scissors") || 
+              (player === "paper" && computer === "rock") ||
+              (player === "scissors" && computer === "paper") ) {
+                  alert(`player win this hand! \n ${player} beats ${computer}`);
+                  return 1;
+        }
+        else {  // if it's the other way around, the computer wins
+              alert(`computer win this hand! \n ${computer} beats ${player}`);
+              return 2;
+        }
+    }
+
+    function checkBoard(score) {
+      if (score === 1) {
+        playerScore += 1;
+      }
+      else if (score === 2) {
+        computerScore += 1;
+      }
+      else if (score === 0) {
+        playerScore += 0;
+        computerScore += 0;
+      }
+    }
+
+    
+    function Game(round) { 
+      do {
+        var player = playerSelection();
+        var computer = computerSelection();
+        var score = playRound(player, computer);
+        checkBoard(score);
+        if (score != 0) {  // if it's a tie, don't add the score 
+           round--;
+        }
+      } while (round > 0);
+      if(playerScore > computerScore) { // return the final result
+        return (`the player : ${playerScore} beats the computer : ${computerScore}, Congratulation!!!`);
+      }
+      else if (playerScore < computerScore) {
+        return (`the player : ${playerScore} lose to the computer : ${computerScore}, Ouch!! may be next time`);
+      }
+  } 
+    
+
+    console.log(Game(5));
+  </script>
+</body>
+</html>
